@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import firebase from 'firebase'
+
     export default {
         name: 'register',
         data : function(){
@@ -22,17 +22,22 @@ import firebase from 'firebase'
                 password : ''
             }
         },
+        computed: {
+            user(){
+                return this.$store.getters.user
+            }
+
+        },
+        watch:{
+            user(value){
+                if(value != null && value != undefined){
+                     this.$router.push({name:'home'})
+                }
+            }
+        },
         methods: {
             register: function(){
-                firebase.auth().createUserWithEmailAndPassword(this.email,this.password).then(
-                    (user) => {
-                        alert('Hesap Oluşturuldu')
-                          this.$router.push({name:'home'})
-                    },
-                    (err) => {
-                        alert('Bi sorun oluştu' + err.message)
-                    }
-                );
+                this.$store.dispatch('signUserUp',{email:this.email, password: this.password})
             }
         }
     }

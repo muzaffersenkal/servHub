@@ -21,24 +21,27 @@ import firebase from 'firebase'
                 password : ''
             }
         },
+        computed: {
+            user(){
+                return this.$store.getters.user
+            }
+
+        },
+        watch:{
+            user(value){
+                if(value != null && value != undefined){
+                     this.$router.push({name:'home'})
+                }
+            }
+        },
         methods: {
            // login:function(){
              //   this.$router.replace('/')
            // }
 
            login: function(){
-               firebase.auth().signInWithEmailAndPassword(this.email,this.password).then(
-                    (user) => {
-                      
-                       
-                       this.$router.push({name:'home'})
-                   },
-                   (err )=> {
-                       alert('giriş Başarısız tekrar dene')
-                       this.email = ''
-                       this.password =''
-                   }
-               );
+                   this.$store.dispatch('signUserIn',{email:this.email, password: this.password})
+            
            }
         }
     }

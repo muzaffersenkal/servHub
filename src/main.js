@@ -7,7 +7,8 @@ import  { store } from './store/store'
 Vue.config.productionTip = false
 import firebase from 'firebase'
 
-let app;
+Vue.config.devtools = true;
+
 
   // Initialize Firebase
   var config = {
@@ -21,16 +22,16 @@ let app;
   firebase.initializeApp(config);
 
 firebase.auth().onAuthStateChanged(function(user){
-  if(!app){
+  
 /* eslint-disable no-new */
-    app =  new Vue({
+    new Vue({
       el: '#app',
       router,
       store,
       components: { App },
       template: '<App/>'
     })
-  }
+ 
 
 });
 
