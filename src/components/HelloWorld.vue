@@ -3,7 +3,11 @@
     <ion-page class="show-page">
       <ion-header>
         <ion-toolbar>
-          <ion-title>Ionic 4 + Vue Application<button v-on:click="logout">Çıkış Yap</button> </ion-title>
+           
+          <ion-title>Ionic 4 + Vue Application
+            <button v-on:click="logout">Çıkış Yap</button> 
+            
+            </ion-title>
         </ion-toolbar>
       </ion-header>
       <ion-content class="content" padding>
@@ -19,6 +23,8 @@
     <button @click="increment">+</button>
     <button @click="decrement">-</button>
   </p>
+  <router-link to='/createCompany'>Şirket Oluştur</router-link>
+            
       </ion-content>
     </ion-page>
   

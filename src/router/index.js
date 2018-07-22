@@ -4,6 +4,7 @@ import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
 import Login from '@/components/auth/Login'
 import Register from '@/components/auth/Register'
+import CreateCompany from '@/components/company/CreateCompany'
 import firebase from 'firebase'
 
 Vue.use(Router)
@@ -36,8 +37,17 @@ let  router = new Router({
       path: '/register',
       name: 'Register',
       component: Register
+    },
+    {
+      path: '/createCompany',
+      name: 'CreateCompany',
+      component: CreateCompany,
+      meta: {
+        requiresAuth: true
+      }
     }
-  ]
+  ],
+  mode:'history'
 });
 
 router.beforeEach((to, from, next ) => {

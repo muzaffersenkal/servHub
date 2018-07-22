@@ -4,11 +4,12 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import  { store } from './store/store'
-Vue.config.productionTip = false
 import firebase from 'firebase'
+import Alert from './components/shared/Alert.vue'
 
 Vue.config.devtools = true;
-
+Vue.config.productionTip = false
+Vue.component('app-alert',Alert )
 
   // Initialize Firebase
   var config = {

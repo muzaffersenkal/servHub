@@ -1,6 +1,8 @@
 <template>
     <div class="login">
         <h3>Giriş Yap</h3>
+        <div v-if="error">
+        <app-alert @dismissed="onDismissed" :text="error.message"></app-alert></div>
         <input type="text" v-model="email" placeholder="Email"><br>
         <input type="password" v-model="password" placeholder="Password"><br>
         <button v-on:click='login'>Giriş Yap</button>
@@ -24,6 +26,9 @@ import firebase from 'firebase'
         computed: {
             user(){
                 return this.$store.getters.user
+            },
+            error(){
+                return this.$store.getters.error
             }
 
         },
@@ -38,6 +43,10 @@ import firebase from 'firebase'
            // login:function(){
              //   this.$router.replace('/')
            // }
+           onDismissed(){
+               this.$store.dispatch('clearError')
+               console.log("dismissed")
+           },
 
            login: function(){
                    this.$store.dispatch('signUserIn',{email:this.email, password: this.password})
