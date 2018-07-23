@@ -20,19 +20,30 @@ Vue.component('app-alert',Alert )
     storageBucket: "",
     messagingSenderId: "786956021485"
   };
-  firebase.initializeApp(config);
-
-firebase.auth().onAuthStateChanged(function(user){
   
+
+
 /* eslint-disable no-new */
     new Vue({
       el: '#app',
       router,
       store,
       components: { App },
-      template: '<App/>'
-    })
- 
+      template: '<App/>',
+      created(){
+        firebase.initializeApp(config);
+        firebase.auth().onAuthStateChanged((user) =>{
+      
+          if(user !=null && user != undefined){
+            console.log('dispatch ediliyor')
+            this.$store.dispatch('autoSignIn',user)
+          }
+          
+        });
+        
+      }
+
+    
 
 });
 

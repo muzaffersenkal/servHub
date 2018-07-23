@@ -6,7 +6,7 @@ import Login from '@/components/auth/Login'
 import Register from '@/components/auth/Register'
 import CreateCompany from '@/components/company/CreateCompany'
 import firebase from 'firebase'
-
+import AuthGuard  from './auth-guard'
 Vue.use(Router)
 
 let  router = new Router({
@@ -23,9 +23,8 @@ let  router = new Router({
       path: '/',
       name: 'home',
       component: HelloWorld,
-      meta: {
-        requiresAuth: true
-      }
+      beforeEnter: AuthGuard
+      
     },
     {
       path: '/login',
@@ -42,20 +41,12 @@ let  router = new Router({
       path: '/createCompany',
       name: 'CreateCompany',
       component: CreateCompany,
-      meta: {
-        requiresAuth: true
-      }
+      beforeEnter: AuthGuard
+     
     }
   ],
   mode:'history'
 });
 
-router.beforeEach((to, from, next ) => {
-  let currentUser = firebase.auth().currentUser;
-  let requiresAuth = to.matched.some(record => record.meta.requiresAuth);
-  if(requiresAuth &&  !currentUser) next('login')
-  else if(!requiresAuth && currentUser) next({name:'home'})
-  else next()
-});
 
 export default router;
