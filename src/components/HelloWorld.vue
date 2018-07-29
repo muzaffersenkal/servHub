@@ -6,7 +6,7 @@
            
           <ion-title>Ionic 4 + Vue Application
             <button v-on:click="logout">Çıkış Yap</button> 
-            
+             
             </ion-title>
         </ion-toolbar>
       </ion-header>
@@ -38,13 +38,16 @@ export default {
   name: 'App',
   data () {
     return {
-      items: [{id: 0, name:'Ahmed'},{id:1, name: 'Naima'}]
+    
     }
   },  
     computed: {
     count () {
 	    return this.$store.state.count
-    }
+    },
+    items (){
+        return this.$store.getters.companies
+    } 
   },
   methods: {
     increment () {
@@ -59,6 +62,11 @@ export default {
     
       })
     }
+  },
+  created (){
+    this.$store.dispatch('fetchCompanies').then(()=>{
+
+    });
   }
 }
 </script>

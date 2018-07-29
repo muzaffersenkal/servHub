@@ -2,14 +2,16 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import { stat } from 'fs';
 import * as firebase from 'firebase'
+import service from '../services/service';
 Vue.use(Vuex);
 
 export const store = new Vuex.Store({
     state: {
-      count: 0,
-      user: null,
-      loading: false,
-      error: null
+        companies:[],
+        count: 0,
+        user: null,
+        loading: false,
+        error: null
     },
     getters: {
         user(state){
@@ -20,6 +22,9 @@ export const store = new Vuex.Store({
         },
         loading(state){
             return state.loading
+        },
+        companies(state){
+            return state.companies
         }
 
     },
@@ -37,9 +42,18 @@ export const store = new Vuex.Store({
         },
         clearError(state, payload){
             state.error = null
+        },
+        setCompanies(state,payload){
+            state.companies = payload
         }
     },
     actions: {
+
+        fetchCompanies({commit}) {
+            return service.fetchCompanies().then((snapshot) => {
+              commit('setCompanies', snapshot.val());
+            });
+          },
         clearError({commit}){
             commit('clearError')
         },
