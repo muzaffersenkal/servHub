@@ -4,28 +4,15 @@
       <ion-header>
         <ion-toolbar>
            
-          <ion-title>Ionic 4 + Vue Application
+          <ion-title>Company Page
             <button v-on:click="logout">Çıkış Yap</button> 
              
             </ion-title>
         </ion-toolbar>
       </ion-header>
       <ion-content class="content" padding>
-          <ion-list>
-            <ion-item v-for="item of items" v-bind:key="item.id">
-              <ion-label full>{{ item.name}}</ion-label>
-                <router-link :to="`/company/${item.name}`">Sayfaya Git</router-link>
-
-              
-
-            </ion-item>
-          </ion-list>
-            <p>{{ count }}</p>
-  <p>
-    <button @click="increment">+</button>
-    <button @click="decrement">-</button>
-  </p>
-  <router-link to='/createCompany'>Şirket Oluştur</router-link>
+          
+  
             
       </ion-content>
     </ion-page>
@@ -52,12 +39,7 @@ export default {
     } 
   },
   methods: {
-    increment () {
-      this.$store.commit('increment')
-    },
-    decrement () {
-    	this.$store.commit('decrement')
-    },
+  
     logout(){
       firebase.auth().signOut().then(()=> {
           this.$router.replace('login')
