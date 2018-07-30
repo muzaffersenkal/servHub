@@ -12,9 +12,9 @@
       </ion-header>
       <ion-content class="content" padding>
           <ion-list>
-            <ion-item v-for="item of items" v-bind:key="item.id">
+            <ion-item v-for="(item , key) in items" v-bind:key="item.id">
               <ion-label full>{{ item.name}}</ion-label>
-                <router-link :to="`/company/${item.name}`">Sayfaya Git</router-link>
+                <router-link :to="`/company/${key}`">Sayfaya Git</router-link>
 
               
 

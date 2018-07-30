@@ -4,9 +4,9 @@
       <ion-header>
         <ion-toolbar>
            
-          <ion-title>Company Page
+          <ion-title>
             <button v-on:click="logout">Çıkış Yap</button> 
-             
+              {{ company["details"].name }}
             </ion-title>
         </ion-toolbar>
       </ion-header>
@@ -34,8 +34,8 @@ export default {
     count () {
 	    return this.$store.state.count
     },
-    items (){
-        return this.$store.getters.companies
+    company (){
+        return this.$store.getters.company
     } 
   },
   methods: {
@@ -48,8 +48,9 @@ export default {
     }
   },
   created (){
-    this.$store.dispatch('fetchCompanies').then(()=>{
-
+    this.id = this.$route.params.id;
+    this.$store.dispatch('fetchCompanyDetail',this.id).then(()=>{
+      console.log("detay sayfası alındı")
     });
   }
 }

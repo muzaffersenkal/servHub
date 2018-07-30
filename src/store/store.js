@@ -8,6 +8,7 @@ Vue.use(Vuex);
 export const store = new Vuex.Store({
     state: {
         companies:[],
+        company : {},
         count: 0,
         user: null,
         loading: false,
@@ -25,6 +26,9 @@ export const store = new Vuex.Store({
         },
         companies(state){
             return state.companies
+        },
+        company(state){
+            return state.company
         }
 
     },
@@ -45,6 +49,9 @@ export const store = new Vuex.Store({
         },
         setCompanies(state,payload){
             state.companies = payload
+        },
+        setCompany(state,payload){
+            state.company = payload
         }
     },
     actions: {
@@ -52,6 +59,11 @@ export const store = new Vuex.Store({
         fetchCompanies({commit}) {
             return service.fetchCompanies().then((snapshot) => {
               commit('setCompanies', snapshot.val());
+            });
+          },
+          fetchCompanyDetail(context, id) {
+            return service.fetchCompanyDetail(id).then((snapshot) => {
+              context.commit('setCompany',{ id, details: snapshot.val() });
             });
           },
         clearError({commit}){
@@ -120,7 +132,9 @@ export const store = new Vuex.Store({
         createCompany({commit},payload){
             const company = {
                 name : payload.name,
-                description : payload.description
+                description : payload.description,
+                confirm : 0  
+
             }
             firebase.database().ref('companies').push(company)
             .then((data)=> {
